@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Traffic Analysis Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0a12;
+            color: #e6d7a8;
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid #3a3a4a;
+            border-radius: 8px;
+            padding: 25px;
+        }
+        h1, h2 {
+            font-family: 'EB Garamond', serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        h1 {
+            color: #e6d7a8;
+            text-align: center;
+            border-bottom: 1px solid #3a3a4a;
+            padding-bottom: 10px;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+        }
+        h2 {
+            color: #d4af37;
+            margin-top: 30px;
+            font-size: 1.6rem;
+            border-left: 3px solid #d4af37;
+            padding-left: 12px;
+        }
+        .protocol {
+            background-color: #1a1a2a;
+            padding: 18px;
+            border-left: 4px solid #d4af37;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .protocol strong {
+            font-family: 'EB Garamond', serif;
+            font-weight: 500;
+            font-size: 1.2rem;
+            color: #d4af37;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .ip-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 12px 0;
+        }
+        .ip {
+            background-color: #2a2a3a;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .highlight {
+            color: #d4af37;
+            font-weight: 400;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+        }
+        th, td {
+            border: 1px solid #3a3a4a;
+            padding: 10px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #1a1a2a;
+            font-weight: 700;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            font-family: 'Lato', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Network Traffic Analysis Report</h1>
+        
+        <h2>Network Summary</h2>
+        <p>
+            <span class="highlight">Subnet:</span> 192.168.29.0/24<br>
+            <span class="highlight">Capture Duration:</span> 1 minute<br>
+            <span class="highlight">Primary Protocols:</span> UDP, ARP, IGMPv3, ICMPv6
+        </p>
+
+        <h2>Protocol Analysis</h2>
+        
+        <div class="protocol">
+            <strong>UDP Traffic</strong>
+            <table>
+                <tr>
+                    <th>Source IP</th>
+                    <th>Destination IP</th>
+                    <th>Port</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>192.168.29.152</td>
+                    <td>8.8.8.8</td>
+                    <td>53</td>
+                    <td>DNS Query</td>
+                </tr>
+                <tr>
+                    <td>192.168.29.171</td>
+                    <td>224.0.0.251</td>
+                    <td>5353</td>
+                    <td>mDNS</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="protocol">
+            <strong>ARP Activity</strong>
+            <ul>
+                <li>192.168.29.152 → Broadcast (Who has 192.168.29.1?)</li>
+                <li>192.168.29.1 → 192.168.29.152 (ARP Reply)</li>
+            </ul>
+        </div>
+        
+        <div class="protocol">
+            <strong>IGMPv3 Multicast</strong>
+            Membership reports detected from:
+            <div class="ip-list">
+                <span class="ip">192.168.29.152</span>
+                <span class="ip">192.168.29.171</span>
+            </div>
+            (Possible video streaming or local service discovery)
+        </div>
+        
+        <div class="protocol">
+            <strong>ICMPv6 Traffic</strong>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                </tr>
+                <tr>
+                    <td>Neighbor Solicitation</td>
+                    <td>fe80::[local]</td>
+                    <td>ff02::1:ff00:1</td>
+                </tr>
+                <tr>
+                    <td>Router Advertisement</td>
+                    <td>fe80::[router]</td>
+                    <td>ff02::1</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>Detected Network Devices</h2>
+        <div class="ip-list">
+            <span class="ip">192.168.29.1 (Gateway)</span>
+            <span class="ip">192.168.29.152</span>
+            <span class="ip">192.168.29.171</span>
+            <span class="ip">224.0.0.251 (mDNS)</span>
+            <span class="ip">ff02::1 (IPv6 All-Nodes)</span>
+        </div>
+
+        <h2>Key Observations</h2>
+        <ul>
+            <li>Standard ARP traffic for local network resolution</li>
+            <li>Active multicast participation (IGMPv3) suggesting media services</li>
+            <li>IPv6 neighbor discovery and router advertisements</li>
+            <li>DNS queries to external resolver (8.8.8.8)</li>
+        </ul>
+
+        <div class="footer">
+            Generated from Wireshark capture | Timestamp: <span id="timestamp"></span>
+        </div>
+    </div>
+
+    <script>
+        // Automatically insert today's date and time
+        const now = new Date();
+        const options = { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        };
+        document.getElementById('timestamp').textContent = now.toLocaleDateString('en-US', options);
+    </script>
+</body>
+</html>
